@@ -1,8 +1,25 @@
 @charset "UTF-8";
 
 .wrap{
-	width: 1000px;
-	margin: 30px auto;
-	text-align: center;
+   width: 1000px;
+   margin: 30px auto;
+   text-align: center;
 }
-h1{color: grey;}
+
+h1{color: #F4CED9;}
+.tbl_write{
+   width: 600px; margin:0 auto;
+   border-collapse: collapse;
+}
+a {
+	text-decoration: none;
+}
+.tbl_write td, th{
+   border: 1px solid #ccc; padding: 10px;
+}
+.tbl_write input[type="text"]{
+   width: 500px; height: 25px;
+}
+.tbl_write textarea{
+   width: 500px; height: 300px;
+}
