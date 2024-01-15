@@ -1,0 +1,71 @@
+@charset "UTF-8";
+
+#container{
+	width: 1200px;
+	margin: 30px auto;
+}
+h2{
+	color: grey;
+	text-align: center;
+}
+ul li{
+	list-style: none;
+	margin: 15px;
+}
+
+/* index */
+.main-img{
+	text-align: center;
+}
+.menu{
+	text-align: center;	
+}
+
+a{
+	text-decoration: none;
+}
+
+/* join */
+.joinform{
+	width: 420px; margin: 0 auto;
+}
+.joinform label {
+	width: 100px;
+	float: left;
+}
+
+.joinform input {
+	padding: 4px;
+}
+
+/* list */
+.memberlist {
+	width: 700px;
+	margin: 0 auto;
+	border-collapse: collasps;
+}
+.memberlist th, td {
+	border: 1px solid #ccc;
+	padding: 8px;
+}
+
+/* detail */
+.detail {
+	width: 420px;
+	margin: 0 auto;
+}
+
+.detail label {
+	width: 100px;
+	float: left;
+}
+
+.detail input {
+	padding: 4px;
+}
+
+/* login */
+.error{
+	color: #8B0000;
+	font-size: 0.8em;
+}
