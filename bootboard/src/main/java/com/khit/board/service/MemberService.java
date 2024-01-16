@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 
 import com.khit.board.dto.MemberDTO;
 import com.khit.board.entity.Member;
+import com.khit.board.exception.BootBoardException;
 import com.khit.board.repository.MemberRepository;
 
 import jakarta.servlet.http.HttpSession;
@@ -46,10 +47,16 @@ public class MemberService {
 
 	public MemberDTO findById(Long id) {
 		//findById(id).get()
-		Member member = memberRepository.findById(id).get();
-		//entity -> dto 변환
-		MemberDTO memberDTO = MemberDTO.toSaveDTO(member);
-		return memberDTO;
+		//Id가 없을 때 오류 처리 - "url을 찾을 수 없습니다"
+		Optional<Member> member = memberRepository.findById(id);
+		if(member.isPresent()) {	//id가 있으면
+			//entity -> dto 변환
+			MemberDTO memberDTO = MemberDTO.toSaveDTO(member.get());
+			return memberDTO;
+		}else {	//없으면
+			throw new BootBoardException("사용자가 존재하지 않습니다.");
+		}
+		
 	}
 
 	public void deleteById(Long id) {
@@ -90,5 +97,15 @@ public class MemberService {
 		Member member = Member.toUpdateEntity(memberDTO);
 		//id가 있는 엔티티의 메서드 필요
 		memberRepository.save(member);
+	}
+
+	public String checkEmail(String memberEmail) {
+		//db에 있는 이메일을 조회하여 없으면 OK 있으면 NO
+		Optional<Member> findMember = memberRepository.findByMemberEmail(memberEmail);
+		if(findMember.isEmpty()) {	//db에 회원이 없으면 가입해도 되는("OK") 문자
+			return "OK";
+		}else {	//
+			return "NO";
+		}
 	}
 }

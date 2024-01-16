@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.khit.board.dto.MemberDTO;
 import com.khit.board.service.MemberService;
@@ -73,8 +75,9 @@ public class MemberController {
 		MemberDTO loginMember = memberService.login(memberDTO);
 		//로그인한 결과(객체가 있으면 로그인, 없으면 다시 로그인폼으로)
 		if(loginMember != null) {
-			//세션 발급
+			//세션 발급(이메일, 이름)
 			session.setAttribute("sessionEmail", loginMember.getMemberEmail());
+			session.setAttribute("sessionName", loginMember.getMemberName());	//이름
 			return "main";	//main.html
 		}else {
 			String error = "아이디 또는 비밀번호를 확인해 주세요.";
@@ -99,11 +102,19 @@ public class MemberController {
 	   return "/member/update";	//update.html
    }
    
-   //수정 처리
+   //수정 처리 - 상세 보기
    @PostMapping("/member/update")
    public String update( MemberDTO memberDTO) {
       memberService.update(memberDTO);
       return "redirect:/member/" + memberDTO.getId();
    }
-
+   
+   //이메일 중복 검사
+   @PostMapping("/member/check-email")
+   public @ResponseBody String checkEmail(
+		   @RequestParam("memberEmail") String memberEmail) {
+	   String resultText = memberService.checkEmail(memberEmail);
+	   
+	   return resultText;
+   }
 }

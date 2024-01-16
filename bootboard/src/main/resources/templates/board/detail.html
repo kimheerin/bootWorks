@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Detail</title>
+<link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+   <div id="container">   
+      <h2>게시글 상세보기</h2>
+      <form th:action="@{/board/write}" method="post" class="writeform">
+         <table class="tbl_list">
+            <tr>
+               <td>
+                  <input type="text" name ="boardTitle"
+                 	th:value="${board.boardTitle}" readonly>
+                  
+               </td>
+            </tr>      
+            <tr>
+               <td>
+                  <input type="text" name ="boardWriter"
+                 	th:value="${board.boardWriter}" readonly>
+               </td>
+            </tr>      
+            <tr>
+               <td>
+                  <textarea rows="5" cols="50" name="boardContent"
+                     th:text="${board.boardContent}" >
+                  </textarea>
+               </td>
+            </tr>   
+            <tr>
+               <td>
+                  <input type="text" name ="boardHits"
+                 	th:value="'조회수: ' + ${board.boardHits}" readonly>
+               </td>
+            </tr>
+            <tr>
+               <td>
+                  <input type="text" name ="createdDate"
+                 	th:value="${#temporals.format(board.createdDate,
+                         		 'yyyy-MM-dd HH:mm:ss')}" readonly>
+               </td>
+            </tr>       
+            <tr>
+               <td>
+               <span th:block th:if="${session.sessionName == board.boardWriter}">
+				<a th:href="@{|/board/update/${board.id}|}">
+					<input type="button" value="수정">
+               </a>
+               <a th:href="@{|/board/delete/${board.id}|}"
+               		onclick="return confirm('삭제하시겠습니까?')">
+					<input type="button" value="삭제">
+               </a>
+               </span>
+               <a th:href="@{/board/list}">
+                  <input type="button" value="목록">
+               </a>
+               </td>
+            </tr>
+         </table>               
+      </form>
+   </div>
+</body>
+</html>

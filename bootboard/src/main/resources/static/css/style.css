@@ -38,16 +38,12 @@ a{
 	padding: 4px;
 }
 
-/* list */
-.memberlist {
-	width: 700px;
-	margin: 0 auto;
-	border-collapse: collasps;
-}
-.memberlist th, td {
-	border: 1px solid #ccc;
-	padding: 8px;
-}
+/* tbl_list */
+.tbl_list{width:700px; margin:0 auto;
+         border-collapse:collapse;}
+.tbl_list th, td{border :1px solid #ccc; padding:8px; text-align:center;}         
+.tbl_list input[type="text"]{width: 600px; height:25px;}
+.tbl_list textarea[type="text"]{width: 600px; height:8px;}
 
 /* detail */
 .detail {
