@@ -8,12 +8,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class HomeController {
 	
-	//원랜 있었어야 하는데 ~ 있어도 되고 없어도 된다..
-	/* 
-	@GetMapping("/")
+//원랜 있었어야 하는데 ~ 있어도 되고 없어도 된다..
+ 
+	@GetMapping("/main")
 	public String index() {
-		return "index";	//index.html
-	}*/
+		return "main";	//main.html
+	}
 	
 }
  

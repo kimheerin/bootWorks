@@ -3,6 +3,7 @@ package com.khit.board.entity;
 import java.time.LocalDateTime;
 
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import jakarta.persistence.Column;
@@ -19,7 +20,7 @@ public class BassEntity {
 	@Column(updatable = false)
 	private LocalDateTime createdDate;
 	
-	@CreationTimestamp
+	@UpdateTimestamp
 	@Column(insertable = false)
 	private LocalDateTime updatedDate;
 }

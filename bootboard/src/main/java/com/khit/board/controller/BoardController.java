@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,8 +14,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.khit.board.dto.BoardDTO;
 import com.khit.board.service.BoardService;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @RequestMapping("/board")
 @RequiredArgsConstructor
 @Controller
@@ -24,17 +28,21 @@ public class BoardController {
 	
 	//글쓰기 페이지
 	@GetMapping("/write")
-	public String writeForm() {
+	public String writeForm(BoardDTO boardDTO) {
 		
 		return "/board/write";	//write.html
 	}
 	
 	//글쓰기 처리
 	@PostMapping("/write")
-	public String write(@ModelAttribute BoardDTO boardDTO) {
+	public String write(@Valid BoardDTO boardDTO,
+			BindingResult bindingResult) {
+		if(bindingResult.hasErrors()) {	//에러가 있으면 글쓰기폼으로 이동
+			log.info("has errors");
+			return "/board/write";
+		}
 		boardService.save(boardDTO);
-		
-		return "redirect:/";
+		return "redirect:/board/list";
 	}
 	
 	//글 목록
@@ -73,13 +81,13 @@ public class BoardController {
 		return "/board/update";
 	}
 	
-		//글 수정 처리
-		@PostMapping("/update")
-		public String update(@ModelAttribute BoardDTO boardDTO) {
-			//수정 후 글 상세보기
-			boardService.update(boardDTO);
-			
-			return "redirect:/board/" + boardDTO.getId();
-			
-		}
+	//글 수정 처리
+	@PostMapping("/update")
+	public String update(@ModelAttribute BoardDTO boardDTO) {
+		//수정 후 글 상세보기
+		boardService.update(boardDTO);
+		return "redirect:/board/" + boardDTO.getId();
+	}
+		
+
 }

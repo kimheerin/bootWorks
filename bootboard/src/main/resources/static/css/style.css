@@ -65,3 +65,5 @@ a{
 	color: #8B0000;
 	font-size: 0.8em;
 }
+.writeform{width: 800px; margin: 0 auto;}
+.alert-danger{padding: 0 0 10px 510px; color: #8B0000;}
