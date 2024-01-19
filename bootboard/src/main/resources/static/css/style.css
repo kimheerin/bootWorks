@@ -1,4 +1,6 @@
 @charset "UTF-8";
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400&display=swap');
+*{font-family: Noto Sans KR;}
 
 #container{
 	width: 1200px;
@@ -44,6 +46,15 @@ a{
 .tbl_list th, td{border :1px solid #ccc; padding:8px; text-align:center;}         
 .tbl_list input[type="text"]{width: 600px; height:25px;}
 .tbl_list textarea[type="text"]{width: 600px; height:8px;}
+.pagingnation{margin: 10px;}
+.btn_write{text-align: right; padding: 0 250px 0 0;}
+.pagination {text-align: center; padding-top: 10px;}
+.pagination a{margin: 3px; text-decoration: none; color: #333;
+	font-size:0.8em;}
+.pagenation span.current_page{font-size: 0.8em; color: blue;}
+.searchform{width: 700px; margin: 0 auto; text-align: right;
+	margin-bottom: 12px;}
+.sel_type{padding: 1px;}
 
 /* detail */
 .detail {
@@ -67,3 +78,4 @@ a{
 }
 .writeform{width: 800px; margin: 0 auto;}
 .alert-danger{padding: 0 0 10px 510px; color: #8B0000;}
+

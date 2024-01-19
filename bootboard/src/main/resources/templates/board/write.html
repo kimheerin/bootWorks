@@ -8,7 +8,8 @@
 <body>
    <div id="container">   
       <h2>글쓰기</h2>
-      <form th:action="@{/board/write}" method="post" th:object="${boardDTO}">
+      <form th:action="@{/board/write}" method="post" enctype="multipart/form-data"
+      th:object="${boardDTO}">
       	<div th:if="${#fields.hasAnyErrors()}">
       		<div th:each="err: ${#fields.allErrors()}"
       				th:text="${err}" class="alert-danger"></div>
@@ -34,7 +35,12 @@
                      placeholder="내용 ">
                   </textarea>
                </td>
-            </tr>      
+            </tr>
+            <tr>
+               <td>
+                  <input type="file" name ="boardFile">
+               </td>
+            </tr>       
             <tr>
                <td>
                   <input type="submit" value="등록">

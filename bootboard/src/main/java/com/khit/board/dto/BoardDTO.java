@@ -31,8 +31,31 @@ public class BoardDTO {
 	private String boardContent;
 	
 	private Integer boardHits;
+	private String filename;
+	private String filepath;
+	
 	private LocalDateTime createdDate;
 	private LocalDateTime updatedDate;
+	
+	//entity -> dto로 변환할 정적메서드
+	public BoardDTO(
+	Long id, @NotEmpty(message = "제목은 필수 항목입니다.")
+	@Size(max = 255) String boardTitle,
+	@NotEmpty(message = "작성자는 필수 항목입니다.")
+	@Size(max = 30) String boardWriter,
+	@NotEmpty(message = "내용은 필수 항목입니다.")
+	@Size(max = 2000) String boardContent, Integer boardHits,
+			LocalDateTime createdDate) {
+		super();
+		this.id = id;
+		this.boardTitle = boardTitle;
+		this.boardWriter = boardWriter;
+		this.boardContent = boardContent;
+		this.boardHits = boardHits;
+		this.createdDate = createdDate;
+		this.updatedDate = updatedDate;
+	}
+	
 	
 	//entity -> dto 변환 정적 메서드
 	//db에 있는 모든 칼럼을 가져옴
@@ -42,6 +65,8 @@ public class BoardDTO {
 				.boardTitle(board.getBoardTitle())
 				.boardWriter(board.getBoardWriter())
 				.boardContent(board.getBoardContent())
+				.filename(board.getFilename())
+				.filepath(board.getFilepath())
 				.boardHits(board.getBoardHits())
 				.createdDate(board.getCreatedDate())
 				.updatedDate(board.getUpdatedDate())
@@ -49,4 +74,5 @@ public class BoardDTO {
 		
 		return boardDTO;
 	}
+
 }
