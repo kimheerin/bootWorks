@@ -46,15 +46,15 @@ public class BoardService {
 			File savedFile = new File(filepath, filename);	//upload 폴더에 저장
 			boardFile.transferTo(savedFile);
 			
-		//2.파일명 db에 저장
-		boardDTO.setFilename(filename);
-		boardDTO.setFilepath("/upload/" + filename);	//파일 경로 설정
+			//2.파일명 db에 저장
+			boardDTO.setFilename(filename);
+			boardDTO.setFilepath("/upload/" + filename);	//파일 경로 설정
 	}
 		
-		//dto -> entity로 변환
-		Board board = Board.toSaveEntity(boardDTO);
-		//entity를 db에 저장
-		boardReposiroty.save(board);
+			//dto -> entity로 변환
+			Board board = Board.toSaveEntity(boardDTO);
+			//entity를 db에 저장
+			boardReposiroty.save(board);
 	}
 
 	public List<BoardDTO> findAll() {
@@ -94,11 +94,33 @@ public class BoardService {
 		boardReposiroty.deleteById(id);
 	}
 
-	public void update(BoardDTO boardDTO) {
-		//save() - 삽입(id가 없고), 수정(id가 있음)
-		//dto -> entity
-		Board board = Board.toUpdateEntity(boardDTO);
-		boardReposiroty.save(board);
+	public void update(BoardDTO boardDTO, MultipartFile boardFile) throws IOException {
+		Board board = null;
+		//1. 파일 서버에 저장
+		if(boardFile != null) {	//전달된 파일이 있으면
+			//저장 경로
+			String filepath = "C:\\bootWorks\\bootboard\\src\\main\\resources\\static\\upload\\";
+			
+			UUID uuid = UUID.randomUUID();	//무작위 데이터 생성
+			
+			String filename = uuid + "_" + boardFile.getOriginalFilename();	//원본 파일
+			
+			//File 클래스 객체 생성
+			File savedFile = new File(filepath, filename);	//upload 폴더에 저장
+			boardFile.transferTo(savedFile);
+				
+			//2.파일명 db에 저장
+			boardDTO.setFilename(filename);
+			boardDTO.setFilepath("/upload/" + filename);	//파일 경로 설정
+
+		}else {
+			//수정할 파일이 없으면 게시글 번호 경로만 보여줌
+			boardDTO.setFilepath(findById(boardDTO.getId()).getFilepath());
+		}
+			//save() - 삽입(id가 없고), 수정(id가 있음)
+			//dto -> entity
+			board = Board.toUpdateEntity(boardDTO);
+			boardReposiroty.save(board);
 	}
 
 	public Page<BoardDTO> findListAll(Pageable pageable) {

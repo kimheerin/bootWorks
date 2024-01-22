@@ -37,6 +37,10 @@ ul li {
     padding: 10px 0;
 }
 
+fieldset {
+	border: none;
+}
+
 .main-img, .menu {
     text-align: center;
     margin-bottom: 20px;
@@ -87,6 +91,7 @@ a:hover {
     border: 1px solid #ccc;
     padding: 10px;
     text-align: center;
+    font-size: 14px;
 }
 
 .pagingnation, .searchform {

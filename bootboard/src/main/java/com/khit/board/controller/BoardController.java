@@ -1,5 +1,6 @@
 package com.khit.board.controller;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
@@ -128,9 +129,10 @@ public class BoardController {
 	
 	//글 수정 처리
 	@PostMapping("/update")
-	public String update(@ModelAttribute BoardDTO boardDTO) {
+	public String update(@ModelAttribute BoardDTO boardDTO,
+			MultipartFile boardFile) throws IOException {
 		//수정 후 글 상세보기
-		boardService.update(boardDTO);
+		boardService.update(boardDTO, boardFile);
 		return "redirect:/board/" + boardDTO.getId();
 	}
 		

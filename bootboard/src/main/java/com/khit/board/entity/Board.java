@@ -40,6 +40,8 @@ public class Board extends BassEntity {
 	@Column
 	private String boardFile;
 	
+	//write.html에서 name값과  다른 이름으로 만들 것
+	//MultipartFile과 String 타입이 서로 다르므로
 	@Column
 	private String filename;
 	

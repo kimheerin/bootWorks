@@ -7,7 +7,7 @@
 </head>
 <body>
    <div id="container">   
-      <h2>게시글 작성</h2>
+      <h2>Write</h2>
       <form th:action="@{/board/write}" method="post" enctype="multipart/form-data"
       th:object="${boardDTO}">
       	<div th:if="${#fields.hasAnyErrors()}">
