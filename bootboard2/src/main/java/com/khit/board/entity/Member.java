@@ -6,6 +6,8 @@ import java.util.List;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -36,7 +38,10 @@ public class Member {
 	private String name;
 	
 	@Column
-	private String role;		//권한 - 일반, 관리자
+	//private String role;		//권한 - 일반, 관리자
+
+	@Enumerated(EnumType.STRING)
+	private Role role;
 	
 	//Board와 관계 매핑
 	//주인 설정('다'가 주)
