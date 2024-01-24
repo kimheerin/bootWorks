@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+     xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+<meta charset="UTF-8">
+<title>Update</title>
+<link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+   <!-- header.html 연결 -->
+   <div th:replace="~{/layout/header::header-fragment}"></div>
+   
+	<div id="container">   
+      <h2>EDIT POST</h2>
+		<form th:action="@{/board/update}" method="post">
+	         <table class="tbl_list">
+	         <tbody>
+	            <tr>
+	              <td class="hidden">
+	                 <input type="hidden" name="id" id="id"
+	                 	th:value="${board.id}" readonly>
+	               </td>
+	            </tr>         	
+	            <tr>
+	               <td>
+	                  <input type="text" name ="title"
+	                 	th:value="${board.title}">
+	               </td>
+	            </tr>      
+	            <tr>
+	               <td>
+	                  <input type="text"
+	                 	th:value="${board.member.name}" readonly>
+	               </td>
+	            </tr>      
+	            <tr>
+	               <td>
+	                  <textarea rows="5" cols="50" name="content" style="height: 300px;"
+	                     th:text="${board.content}">
+	                  </textarea>
+	               </td>
+	            </tr>   
+	            <tr>
+	               <td>
+						<input type="submit" value="done">
+						<input type="reset" value="cancel">
+	               </td>
+	            </tr>
+	         </tbody>
+	         </table>       
+		</form>        
+	</div>
+</body>
+</html>

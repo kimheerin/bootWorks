@@ -7,7 +7,7 @@
 </head>
 <body>
 	<div id="container">
-		<h2>My Profile</h2>
+		<h2>MY INFO</h2>
 		<div class="detail">
 			<fieldset>
 				<ul>
@@ -32,11 +32,11 @@
 							id="role" th:value="${member.role}" readonly>
 					</li>					
 					<li class="btn">
-						<a th:href="@{/member/list}">
-						<button type="button">Back</button>
-						</a>
 						<a th:href="@{|/member/update/${member.id}|}">
-						<button type="button">Edit</button>
+						<button type="button">edit</button>
+						</a>
+						<a th:href="@{/member/list}">
+						<button type="button">back</button>
 						</a>
 					</li>
 				</ul>

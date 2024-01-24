@@ -8,6 +8,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
@@ -26,11 +27,21 @@ public class SecurityConfig {
 		
 		http
 			.authorizeHttpRequests(authorize -> authorize
-					.requestMatchers("/", "/css/**", "/images/**",
-							"/auth/main", "/member/**", "/main").permitAll()
-					.anyRequest().authenticated()
-					)
-					.formLogin(form -> form.loginPage("/member/login"));
+				.requestMatchers("/", "/css/**", "/images/**", "/js/**").permitAll()
+				.requestMatchers("/board/write").authenticated()
+				.requestMatchers("/member/**", "/board/**").permitAll()
+				.anyRequest().authenticated()
+				)
+				.formLogin(form ->
+				form.loginPage("/member/login")
+					.defaultSuccessUrl("/")
+				);
+		
+        http.
+        	logout().logoutUrl("/member/logout")
+		        .logoutRequestMatcher(new AntPathRequestMatcher("/member/logout"))
+		        .invalidateHttpSession(true)	//세션 무효화
+		        .logoutSuccessUrl("/");
 		
 		return http.build();
 	}

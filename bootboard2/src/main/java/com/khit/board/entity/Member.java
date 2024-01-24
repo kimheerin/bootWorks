@@ -23,7 +23,7 @@ import lombok.ToString;
 @Setter
 @Entity
 @Table(name = "t_member")
-public class Member {
+public class Member extends BaseEntity {
 	@Id	//필수 입력 - PK
 	@GeneratedValue(strategy = GenerationType.IDENTITY)	//자동 순번
 	private Integer id;			//회원 번호
@@ -46,7 +46,6 @@ public class Member {
 	//Board와 관계 매핑
 	//주인 설정('다'가 주)
 	//cascade : 참조된 객체가 삭제되면 참조하는 객체도 삭제됨
-	@OneToMany(mappedBy="member", fetch = FetchType.EAGER,
-			cascade = CascadeType.ALL)
+	@OneToMany(mappedBy="member", cascade = CascadeType.ALL)
 	private List<Board> boardList = new ArrayList<>();
 }

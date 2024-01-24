@@ -1,54 +1,51 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+	     xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head>
 <meta charset="UTF-8">
 <title>Write</title>
 <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
-   <div id="container">   
-      <h2>Write</h2>
-      <form th:action="@{/board/write}" method="post" enctype="multipart/form-data"
-      th:object="${boardDTO}">
-      	<div th:if="${#fields.hasAnyErrors()}">
-      		<div th:each="err: ${#fields.allErrors()}"
-      				th:text="${err}" class="alert-danger"></div>
-      	</div>
-         <table class="tbl_list">
-         	<!--th:field="*{boardTitle}" 는 name 속성 역할도 하고 제목을 유지시키는 기능을 함  -->
-            <tr>
-               <td>
-                  <input type="text" th:field="*{boardTitle}"
-                  placeholder="제목">
-                  
-               </td>
-            </tr>      
-            <tr>
-               <td>
-                  <input type="text" name ="boardWriter" 
-                  th:value ="${session.sessionName}">
-               </td>
-            </tr>      
-            <tr>
-               <td>
-                  <textarea rows="5" cols="50" th:field="*{boardContent}"
-                     placeholder="내용 ">
-                  </textarea>
-               </td>
-            </tr>
-            <tr>
-               <td>
-                  <input type="file" name ="boardFile">
-               </td>
-            </tr>       
-            <tr>
-               <td>
-                  <input type="submit" value="등록">
-                  <input type="reset" value="취소">
-               </td>
-            </tr>
-         </table>               
-      </form>
+   <!-- header.html 연결 -->
+   <div th:replace="~{/layout/header::header-fragment}"></div>
+   
+ 	<div id="container">   
+ 	<section id="writeform">
+      <h2>WRITE</h2>
+         <form th:action="@{/board/write}" method="post">
+           <table class="tbl_list">
+              <tbody>
+                <tr>
+                   <td>
+                      <input type="text" name="title" placeholder="Title">
+                   </td>
+                </tr>
+                <tr>
+                   <td>
+	                   <div sec:authorize="isAuthenticated()"
+	                   		style="text-align: left; margin-left: 10px;">
+	                       <span sec:authentication="principal.member.name"
+							style="color:#555;"></span>
+	                   </div>
+                   </td>
+                </tr>
+                <tr>
+                   <td>
+                      <textarea rows="5" cols="50" name="content"
+                            placeholder="Content"></textarea>
+                   </td>
+                </tr>
+                <tr>
+                   <td>
+                      <input type="submit" value="done">
+                      <input type="reset" value="cancel">
+                   </td>
+                </tr>
+              </tbody>
+           </table>
+		</form> 
+        </section>
    </div>
 </body>
 </html>

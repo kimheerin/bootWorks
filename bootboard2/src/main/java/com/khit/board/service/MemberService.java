@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.khit.board.config.SecurityUser;
 import com.khit.board.entity.Member;
 import com.khit.board.entity.Role;
 import com.khit.board.exception.BootBoardException;
@@ -62,7 +63,16 @@ public class MemberService {
 		memberRepository.deleteById(id);
 	}
 
+	public Member findByIdMemberId(SecurityUser principal) {
+		Optional<Member> member = memberRepository.findByMemberId(principal.getUsername());
+		return member.get();
+	}
+
 	public void update(Member member) {
-	      memberRepository.save(member);
+		//암호화, 권한
+		String encPW = pwEncoder.encode(member.getPassword());
+		member.setPassword(encPW);
+		member.setRole(Role.MEMBER);
+		memberRepository.save(member);
 	}
 }

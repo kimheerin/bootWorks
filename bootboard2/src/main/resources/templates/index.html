@@ -3,21 +3,27 @@
 <head>
 <meta charset="UTF-8">
 <title>Index</title>
-<link rel="stylesheet" th:href="@{/css/style.css}">
+<link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
+   <!-- header.html 연결 -->
+   <div th:replace="~{/layout/header::header-fragment}"></div>
+
 	<div id="container">
 		<h2>BootBoard II</h2>
 		<div class="main-img">
 			<img th:src="@{/images/pitch1.jpg}" alt="theater">
 		</div>
 		<div class="menu">
-			<a th:href="@{/main}">MAIN</a><br>
-			<a th:href="@{/member/join}">SIGN UP</a><br>
+			<a th:href="@{/main}">main</a><br>
+<!-- 			<a th:href="@{/member/join}">SIGN UP</a><br>
 			<a th:href="@{/member/list}">MEMBER LIST</a><br>
-			<a th:href="@{/board/list}">COMMUNITY</a><br>
-			<a th:href="@{/auth/main}">CERTIFY</a><br>
+			<a th:href="@{/board/list}">COMMUNITY</a><br> -->
+			<a th:href="@{/auth/main}">security</a><br>
 		</div>
 	</div>
+   <!-- footer.html 연결 -->
+   <div th:replace="~{/layout/footer::footer-fragment}"></div>
+
 </body>
 </html>

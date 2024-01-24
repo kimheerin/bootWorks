@@ -6,8 +6,11 @@
 <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
+   <!-- header.html 연결 -->
+   <div th:replace="~{/layout/header::header-fragment}"></div>
+   
 	<div id="container">
-		<h2>Edit Profile</h2>
+		<h2>EDIT MY INFO</h2>
 		<div class="detail">
 		<form th:action="@{/member/update}" method="post">
 		<input type="hidden" name="id" th:value="${member.id}">
@@ -34,8 +37,8 @@
 							id="role" th:value="${member.role}" readonly>
 					</li>
 					<li class="btn">
-						<button type="submit">Done</button>
-						<button type="reset">Cancel</button>
+						<button type="submit">done</button>
+						<button type="reset">cancel</button>
 					</li>
 				</ul>
 			</fieldset>

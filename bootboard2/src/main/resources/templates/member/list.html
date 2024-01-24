@@ -6,6 +6,9 @@
 <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
+   <!-- header.html 연결 -->
+   <div th:replace="~{/layout/header::header-fragment}"></div>
+   
 	<div id="container">
 		<h2>MEMBER LIST</h2>
 		<table class="tbl_list">
@@ -21,7 +24,7 @@
 					<td th:text="${member.memberId}"></td>
 					<td th:text="${member.name}"></td>
 					<td th:text="${member.role}"></td>
-					<td><a th:href="@{|/member/${member.id}|}">View</a></td>
+					<td><a th:href="@{|/member/${member.id}|}">view</a></td>
 					<!-- 버티컬바(|)는 ${member.id}를 숫자로 유지해 줌 -->
 					<td><a th:href="@{|/member/delete/${member.id}|}"
 						onclick="return confirm('Are you sure delete?')">◎</a></td>

@@ -2,6 +2,7 @@ package com.khit.board.controller;
 
 import java.util.List;
 
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.khit.board.config.SecurityUser;
 import com.khit.board.entity.Member;
 import com.khit.board.service.MemberService;
 
@@ -46,7 +48,7 @@ public class MemberController {
 	//메인 페이지
 	@GetMapping("/main")
 	public String main() {
-		return "main";	//main.html
+		return "/main";	//main.html
 	}
 	
 	//로그아웃
@@ -92,10 +94,12 @@ public class MemberController {
 	}
 	
 	//회원 수정 페이지
-    @GetMapping("/member/update/{id}")
-    public String updateForm(@PathVariable Integer id,Model model) {
-       Member findmember = memberService.findById(id);
-       model.addAttribute("member", findmember);
+	//@AuthenticationPrincipal - 회원을 인가하는 클래스
+    @GetMapping("/member/update")
+    public String updateMember(@AuthenticationPrincipal SecurityUser principal,
+    		Model model) {
+       Member member = memberService.findByIdMemberId(principal);
+       model.addAttribute("member", member);
        return"/member/update";
 	}
 	

@@ -1,13 +1,17 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+     xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head>
 <meta charset="UTF-8">
 <title>Detail</title>
 <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
+   <!-- header.html 연결 -->
+   <div th:replace="~{/layout/header::header-fragment}"></div>
+   
    <div id="container">   
-      <h2>Detail</h2>
+      <h2>VIEW POST DETAIL</h2>
          <table class="tbl_list">
             <tr>
                <td>
@@ -24,16 +28,26 @@
             </tr>      
             <tr>
                <td>
-                  <textarea rows="5" cols="50" name="content"
-                     th:text="${board.content}" >
+                  <textarea rows="5" cols="50" name="content" style="height: 400px;"
+                     th:text="${board.content}">
                   </textarea>
                </td>
             </tr>   
             <tr>
                <td>
-					<a th:href="@{/board/list}">
-						<input type="button" value="목록">
+               		<th:block sec:authorize="isAuthenticated()"
+               			th:if="${#authentication.getPrincipal.getUsername()}== 
+                              ${board.member.memberId}">
+					<a th:href="@{|/board/update/${board.id}|}">
+						<input type="button" value="edit">
 					</a>
+					<a th:href="@{|/board/delete/${board.id}|}">
+						<input type="button" value="delete">
+					</a>
+					<a th:href="@{/board/list}">
+						<input type="button" value="list">
+					</a>
+					</th:block>
                </td>
             </tr>
          </table>               
