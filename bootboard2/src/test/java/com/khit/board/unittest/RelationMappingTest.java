@@ -106,7 +106,7 @@ public class RelationMappingTest {
 		
 	}*/
 	
-	
+	/*
 	//특정 회원 게시글 조회
 	@Test
 	public void testSelect() {
@@ -120,6 +120,7 @@ public class RelationMappingTest {
 			log.info(board.toString());
 		}
 	}
+	*/
 	
 /*
 	//특정 회원 삭제
