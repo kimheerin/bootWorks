@@ -262,15 +262,14 @@ footer h2 {
 }
 
 .reply-list p{
-	padding: 5px;
+	padding: 7px 5px 0 5px;
 }
 
 .reply-list{
 	width: 60.5%;
 	font-size: 0.8em;
 	margin: 0 auto;
-	padding: 0 0 10px 0;
-	
+	padding-bottom: 5px;
 }
 
 /* weather */
@@ -295,5 +294,4 @@ h1{
 	color: #bbbbbb;
 	font-size: 0.7em;
 	margin-top: 5px;
-	
 }

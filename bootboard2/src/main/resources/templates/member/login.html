@@ -6,8 +6,11 @@
 <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
+<!-- header.html 연결 -->
+<div th:replace="~{/layout/header::header-fragment}"></div>
+
 	<div id="container">
-		<h2>Login</h2>
+		<h2>SIGN IN</h2>
 		<form th:action="@{/member/login}" method="post" class="joinform">
 			<fieldset>
 				<ul>
