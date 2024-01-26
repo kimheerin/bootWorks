@@ -257,6 +257,22 @@ footer h2 {
 	margin: 3px 0 0 600px;
 }
 
+.reply-list p:nth-child(1){
+	border-top: 1px dotted #ccc;
+}
+
+.reply-list p{
+	padding: 5px;
+}
+
+.reply-list{
+	width: 60.5%;
+	font-size: 0.8em;
+	margin: 0 auto;
+	padding: 0 0 10px 0;
+	
+}
+
 /* weather */
 h1{
 	text-align: right;
@@ -265,7 +281,6 @@ h1{
 	animation: sparkle 1s infinite alternate; /* 1초 동안의 애니메이션을 무한 반복 */
 }
 
-/* 반짝임 애니메이션 정의 */
 @keyframes sparkle {
     from {
         color: #9c9c9c; /* 시작 색상 */

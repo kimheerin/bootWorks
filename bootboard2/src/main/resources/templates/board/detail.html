@@ -52,10 +52,26 @@
                </tr>
              </tbody>
           </table>
-          <!-- 댓글 영역 -->
-          <!-- 댓글 목록 -->
-          
-          <!-- 댓글 등록 -->
+		<!-- 댓글 영역 -->
+		<!-- 댓글 목록 -->
+		<div class="reply-list">
+			<div th:each="reply : ${board.replyList}">
+				<p th:text="${reply.content}"></p>
+				<p
+					th:text="${reply.member.name} + 
+                   ' (' + ${reply.createdDate} + ')'"></p>
+				<p>
+				<th:block sec:authorize="isAuthenticated()"
+					th:if="${#authentication.getPrincipal.getUsername()} == 
+							${reply.member.memberId}">
+					<a th:href="'#'">edit | </a>
+					<!-- 자바스크립트에서 자료형값을 유지 - [[자료]] -->
+					<a th:href="'#'"
+						th:onclick="replyObject.deleteReply([[${board.id}]], [[${reply.id}]])">delete</a>
+				</p>
+			</div>
+		</div>
+		<!-- 댓글 등록 -->
           <div class="reply-insert">
              <!-- 게시글 번호를 가져와서 댓글 추가 기능 구현 -->
              <input type="hidden" id="boardId" th:value="${board.id}">

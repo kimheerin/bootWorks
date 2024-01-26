@@ -19,8 +19,13 @@ public class ReplyService {
 	public void insertReply(Integer boardId, Reply reply) {
 		//해당 게시글을 가져와서
 		Board board = boardRepository.findById(boardId).get();
+		//board 객체를 reply에 저장하고
 		reply.setBoard(board);
 		//댓글 저장
 		replyRepository.save(reply);
+	}
+
+	public void deleteById(Integer replyId) {
+		replyRepository.deleteById(replyId);
 	}
 }

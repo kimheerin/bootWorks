@@ -2,6 +2,7 @@ package com.khit.board.controller;
 
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,6 +20,7 @@ public class ReplyController {
 
 	private final ReplyService replyService;
 	
+	//댓글 등록
 	@PostMapping("/reply/{boardId}")
 	public @ResponseBody String insertReply(
 			@PathVariable Integer boardId,
@@ -29,6 +31,14 @@ public class ReplyController {
 		replyService.insertReply(boardId, reply);
 		
 		return "댓글 등록 성공";
+	}
+	
+	//댓글 삭제
+	@DeleteMapping("/reply/{replyId}")
+	public @ResponseBody String delteReply(
+			@PathVariable Integer replyId) {
+		replyService.deleteById(replyId);
+		return "댓글 삭제 완료";
 	}
 	
 }
