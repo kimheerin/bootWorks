@@ -1,56 +1,71 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-     xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+   xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head>
 <meta charset="UTF-8">
+<meta name="_csrf_header" th:content="${_csrf.headerName}">
+<meta name="_csrf" th:content="${_csrf.token}">
 <title>Detail</title>
 <link rel="stylesheet" th:href="@{/css/style.css}">
+<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
 </head>
 <body>
-   <!-- header.html 연결 -->
-   <div th:replace="~{/layout/header::header-fragment}"></div>
-   
-   <div id="container">   
-      <h2>VIEW POST DETAIL</h2>
+<div th:replace="~{/layout/header::header-fragment}"></div>
+    <div id="container">
+         <h2>VIEW POST DETAIL</h2>
          <table class="tbl_list">
-            <tr>
-               <td>
-                  <input type="text" name ="title"
-                 	th:value="${board.title}" readonly>
-                  
-               </td>
-            </tr>      
-            <tr>
-               <td>
-                  <input type="text"
-                 	th:value="${board.member.name}" readonly>
-               </td>
-            </tr>      
-            <tr>
-               <td>
-                  <textarea rows="5" cols="50" name="content" style="height: 400px;"
-                     th:text="${board.content}">
-                  </textarea>
-               </td>
-            </tr>   
-            <tr>
-               <td>
-               		<th:block sec:authorize="isAuthenticated()"
-               			th:if="${#authentication.getPrincipal.getUsername()}== 
-                              ${board.member.memberId}">
-					<a th:href="@{|/board/update/${board.id}|}">
-						<input type="button" value="edit">
-					</a>
-					<a th:href="@{|/board/delete/${board.id}|}">
-						<input type="button" value="delete">
-					</a>
-					<a th:href="@{/board/list}">
-						<input type="button" value="list">
-					</a>
-					</th:block>
-               </td>
-            </tr>
-         </table>               
+             <tbody>
+               <tr>
+                  <td>
+                     <input type="text" name="title"
+                        th:value="${board.title}" readonly>
+                  </td>
+               </tr>
+                <tr>
+                  <td>
+                     <input type="text" 
+                        th:value="${board.member.name}" readonly>
+                  </td>
+               </tr>
+               <tr>
+                  <td>
+                     <textarea rows="5" cols="50" name="content" style="height: 400px;"
+                         th:text="${board.content}" readonly></textarea>
+                  </td>
+               </tr> 
+               <tr>
+                  <td>
+                  <th:block sec:authorize="isAuthenticated()"
+                    th:if="${#authentication.getPrincipal.getUsername()} == 
+                    ${board.member.memberId}">
+                      <a th:href="@{|/board/update/${board.id}|}">
+                        <input type="button" value="edit">
+                     </a>
+                      <a th:href="@{|/board/delete/${board.id}|}">
+                        <input type="button" value="delete">
+                     </a>
+                     </th:block>
+                      <a th:href="@{/board/list}">
+                        <input type="button" value="list">
+                     </a>
+                  </td>
+               </tr>
+             </tbody>
+          </table>
+          <!-- 댓글 영역 -->
+          <!-- 댓글 목록 -->
+          
+          <!-- 댓글 등록 -->
+          <div class="reply-insert">
+             <!-- 게시글 번호를 가져와서 댓글 추가 기능 구현 -->
+             <input type="hidden" id="boardId" th:value="${board.id}">
+             <p>
+                <textarea rows="3" cols="80"
+                         id="replyContent" placeholder="Please write a comment."></textarea>
+             </p>
+             <button id="btn-save-reply">registration</button>
+          </div>
    </div>
+<script src="/js/reply.js"></script>
 </body>
 </html>

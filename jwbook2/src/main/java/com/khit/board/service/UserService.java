@@ -44,4 +44,14 @@ public class UserService {
 		
 		return findUser;
 	}
+	
+	//회원 수정
+	public void update(User user) {
+		userRepository.save(user);
+	}
+	
+	//회원 삭제
+	public void deleteById(Integer id) {
+		userRepository.deleteById(id);
+	}
 }

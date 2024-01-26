@@ -3,9 +3,11 @@ package com.khit.board.controller;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -15,7 +17,7 @@ import com.khit.board.service.UserService;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-@Controller
+@Controller		//@restcontroller -> @controller + @responsebody + @requestbody
 public class UserController {
 
 	private final UserService userService;
@@ -46,4 +48,20 @@ public class UserController {
 		return findUser;
 	}
 	
+	//회원 수정
+	@PutMapping("/user")
+	//전송 방식 - PUT
+	public @ResponseBody String updateUser(@RequestBody User user) {
+		userService.update(user);
+		return "회원 수정 성공!";
+	}
+	
+	//회원 삭제
+	//전송 방식 - DELETE
+	@DeleteMapping("/user/{id}")
+	public @ResponseBody String deleteUser(@PathVariable Integer id) {
+		userService.deleteById(id);
+		return "회원 정보 삭제";
+	}
+
 }

@@ -81,6 +81,10 @@ a {
     transition: color 0.3s;
 }
 
+.main_icon{
+	font-size: 30px;
+}
+
 a:hover {
     color: #007bff; /* 링크 호버 효과 색상 */
 }
@@ -235,4 +239,46 @@ footer h2 {
     font-size: 1em; /* 글자 크기 */
     text-align: center;
 	font-weight: lighter;
+}
+
+/* reply */
+.reply-insert textarea {
+	width: 60.5%;
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+.reply-insert {
+    text-align: center; /* 텍스트 및 인라인 요소를 중앙 정렬 */
+}
+
+#btn-save-reply{
+	margin: 3px 0 0 600px;
+}
+
+/* weather */
+h1{
+	text-align: right;
+	color: #9c9c9c;
+	font-size: 0.8em;
+	animation: sparkle 1s infinite alternate; /* 1초 동안의 애니메이션을 무한 반복 */
+}
+
+/* 반짝임 애니메이션 정의 */
+@keyframes sparkle {
+    from {
+        color: #9c9c9c; /* 시작 색상 */
+    }
+    to {
+        color: #e6e6e6; /* 끝 색상 */
+    }
+}
+
+.result{
+	text-align: right;
+	color: #bbbbbb;
+	font-size: 0.7em;
+	margin-top: 5px;
+	
 }

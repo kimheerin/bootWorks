@@ -11,18 +11,19 @@
    <div th:replace="~{/layout/header::header-fragment}"></div>
 
 	<div id="container">
-		<h2>BootBoard II</h2>
+<!-- 		<h2>BootBoard II</h2> -->
 		<div class="main-img">
 			<img th:src="@{/images/pitch1.jpg}" alt="theater">
 		</div>
 		<div class="menu">
-			<a th:href="@{/main}">main</a><br>
+			<a th:href="@{/main}" class="main_icon">🏡</a>
 			<!-- 			<a th:href="@{/member/join}">SIGN UP</a><br>
 			<a th:href="@{/member/list}">MEMBER LIST</a><br>
 			<a th:href="@{/board/list}">COMMUNITY</a><br> -->
-			<a th:href="@{/auth/main}">security</a><br>
+			<!-- <a th:href="@{/auth/main}">security</a> -->
+			
 			<div class="weather">
-				<h2>Today's Weather</h2>
+				<h1>Today's Weather</h1>
 				<h3 class="result">
 					<!-- 20240125, 0600, -9.1 -->
 				</h3>

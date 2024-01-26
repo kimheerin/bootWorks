@@ -1,9 +1,11 @@
 package com.khit.board.entity;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -12,6 +14,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OrderBy;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
@@ -44,5 +48,10 @@ public class Board extends BaseEntity{
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "member_id")	//지정한 칼럼 네임 가져오기
 	private Member member;
+	
+	// 1페이지 board가 주인이 아님
+	@OneToMany(mappedBy = "board", cascade = CascadeType.ALL)	// 게시글 삭제 시, 댓글 1개 삭제
+	@OrderBy("id desc")
+	private List<Reply> replyList;
 	
 }
