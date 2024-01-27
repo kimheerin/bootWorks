@@ -29,6 +29,7 @@ public class SecurityConfig {
 			.authorizeHttpRequests(authorize -> authorize
 				.requestMatchers("/", "/css/**", "/images/**", "/js/**").permitAll()
 				.requestMatchers("/board/write").authenticated()
+				.requestMatchers("/member/list").hasAnyAuthority("ADMIN")
 				.requestMatchers("/member/**", "/board/**").permitAll()
 				.anyRequest().authenticated()
 				)
@@ -37,11 +38,15 @@ public class SecurityConfig {
 					.defaultSuccessUrl("/")
 				);
 		
+		http.exceptionHandling().accessDeniedPage("/auth/accessDenied");
+		
         http.
         	logout().logoutUrl("/member/logout")
 		        .logoutRequestMatcher(new AntPathRequestMatcher("/member/logout"))
 		        .invalidateHttpSession(true)	//세션 무효화
 		        .logoutSuccessUrl("/");
+        
+
 		
 		return http.build();
 	}
@@ -52,5 +57,4 @@ public class SecurityConfig {
 	PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
-	
 }

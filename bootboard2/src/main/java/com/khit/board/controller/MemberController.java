@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.khit.board.config.SecurityUser;
+import com.khit.board.dto.MemberDTO;
 import com.khit.board.entity.Member;
 import com.khit.board.service.MemberService;
 
@@ -73,40 +74,39 @@ public class MemberController {
 	//회원 목록
 	@GetMapping("/member/list")
 	public String getList(Model model) {
-		List<Member> memberList = memberService.findAll();
-		   model.addAttribute("memberList", memberList);
+		List<Member> memberDTOList = memberService.findAll();
+		   model.addAttribute("member", memberDTOList);
 	       return "/member/list";	//list.hmtl
 	}
 	
 	//회원 상세보기
 	@GetMapping("/member/{id}")
-	public String getMemberDetail(@PathVariable Integer id, Model model) {
-	    Member member = memberService.findById(id);
-	    model.addAttribute("member", member);
-	    return "/member/detail"; // detail.html 페이지로 이동
-	}
+    public String detail(@PathVariable Integer id,Model model) {
+       Member memberDTO = memberService.findById(id);
+       model.addAttribute("member", memberDTO);
+       return"member/detail";
+    }
 	
 	//회원 삭제
 	@GetMapping("/member/delete/{id}")
-	public String deleteMember(@PathVariable Integer id) {
-		memberService.deleteById(id);
-		return "redirect:/member/list";
+    public String delete(@PathVariable Integer id) {
+        memberService.deleteById(id);
+        return "redirect:/member/list";
 	}
 	
 	//회원 수정 페이지
 	//@AuthenticationPrincipal - 회원을 인가하는 클래스
     @GetMapping("/member/update")
-    public String updateMember(@AuthenticationPrincipal SecurityUser principal,
-    		Model model) {
-       Member member = memberService.findByIdMemberId(principal);
-       model.addAttribute("member", member);
-       return"/member/update";
+    public String updateForm(@AuthenticationPrincipal SecurityUser principal, Model model) {
+        MemberDTO findmember = memberService.findByIdMemberId(principal);
+        model.addAttribute("member", findmember);
+        return "/member/update";
 	}
 	
    //수정 처리
     @PostMapping("/member/update")
-    public String update (Member member) {
-        memberService.update(member);
-        return"redirect:/member/" + member.getId();
+    public String update (MemberDTO memberDTO) {
+        memberService.update(memberDTO);
+        return "redirect:/member/" + memberDTO.getId();
    }
 }
