@@ -295,3 +295,12 @@ h1{
 	font-size: 0.7em;
 	margin-top: 5px;
 }
+
+::placeholder{
+	font-size: 0.85em;
+	color: #bcbcbc;
+}
+
+.error {
+	font-size: 0.75em;
+}

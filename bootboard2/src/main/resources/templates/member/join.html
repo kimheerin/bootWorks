@@ -12,24 +12,26 @@
    
 	<div id="container">
 		<h2>SIGN UP</h2>
-		<form th:action="@{/member/join}" method="post" class="joinform">
+		<form th:action="@{/member/join}" method="post" class="joinform" th:object="${memberDTO}">
 			<fieldset>
 				<ul>
 					<li>
 						<label for="memberId">ID</label>
-						<input type="text" name="memberId" id="memberId"
+						<input type="text" th:field="*{memberId}" id="memberId"
 								onblur="checkMemberId()">
+						 <p th:if="${#fields.hasErrors('memberId')}"
+                  			th:errors="*{memberId}" class="error"></p>
 					</li>
 					<li>
 						<p id="check-result"></p>
 					</li>
 					<li>
 						<label for="password">Password</label>
-						<input type="password" name="password" id="password">
+						<input type="password" th:field="*{password}" id="password">
 					</li>
 					<li>
 						<label for="name">Name</label>
-						<input type="text" name="name" id="name">
+						<input type="text" th:field="*{name}" id="name">
 					</li>
 					<li>
 						<input type="submit" value="Continue">

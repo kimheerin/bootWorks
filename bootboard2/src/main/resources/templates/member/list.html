@@ -14,16 +14,22 @@
 		<table class="tbl_list">
 			<thead>
 				<tr>
-					<th>No</th><th>ID</th><th>Name</th>
-					<th>Role</th><th>View</th><th>Delete</th>
+					<th>No</th>
+					<th>ID</th>
+					<th>Name</th>
+					<th>Role</th>
+					<th>Date Created</th>
+					<th>View</th>
+					<th>Delete</th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr th:each="member: ${member}">
+				<tr th:each="member: ${memberList}">
 					<td th:text="${member.id}"></td>
 					<td th:text="${member.memberId}"></td>
 					<td th:text="${member.name}"></td>
 					<td th:text="${member.role}"></td>
+					<td th:text="${#dates.format(member.createdDate,'yyyy-MM-dd HH:mm:ss')}" ></td>
 					<td><a th:href="@{|/member/${member.id}|}">view</a></td>
 					<!-- 버티컬바(|)는 ${member.id}를 숫자로 유지해 줌 -->
 					<td><a th:href="@{|/member/delete/${member.id}|}"
