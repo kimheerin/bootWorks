@@ -7,11 +7,11 @@
 </head>
 <body>
 <!-- header.html 연결 -->
-<div th:replace="~{/layout/header::header-fragment}"></div>
+<div th:replace="~{header::header-fragment}"></div>
 
 	<div id="container">
 		<h2>SIGN IN</h2>
-		<form th:action="@{/member/login}" method="post" class="joinform">
+		<form th:action="@{/login}" method="post" class="joinform">
 			<fieldset>
 				<ul>
 					<li>

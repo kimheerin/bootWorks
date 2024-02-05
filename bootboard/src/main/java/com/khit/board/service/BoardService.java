@@ -94,8 +94,8 @@ public class BoardService {
 		boardReposiroty.deleteById(id);
 	}
 
-	public void update(BoardDTO boardDTO, MultipartFile boardFile) throws IOException {
-		Board board = null;
+	public BoardDTO update(BoardDTO boardDTO, MultipartFile boardFile) throws IOException {
+		//Board board = null;
 		//1. 파일 서버에 저장
 		if(boardFile != null) {	//전달된 파일이 있으면
 			//저장 경로
@@ -119,8 +119,9 @@ public class BoardService {
 		}
 			//save() - 삽입(id가 없고), 수정(id가 있음)
 			//dto -> entity
-			board = Board.toUpdateEntity(boardDTO);
+			Board board = Board.toUpdateEntity(boardDTO);
 			boardReposiroty.save(board);
+			return findById(boardDTO.getId());
 	}
 
 	public Page<BoardDTO> findListAll(Pageable pageable) {

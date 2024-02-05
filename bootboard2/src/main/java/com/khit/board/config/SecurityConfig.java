@@ -27,22 +27,23 @@ public class SecurityConfig {
 		
 		http
 			.authorizeHttpRequests(authorize -> authorize
-				.requestMatchers("/", "/css/**", "/images/**", "/js/**").permitAll()
+				.requestMatchers("/",  "/login", "/css/**", "/images/**", "/js/**").permitAll()
 				.requestMatchers("/board/write").authenticated()
 				.requestMatchers("/member/list").hasAnyAuthority("ADMIN")
-				.requestMatchers("/member/**", "/board/**").permitAll()
+				.requestMatchers("/member/**", "/public-data/**").permitAll()
 				.anyRequest().authenticated()
 				)
 				.formLogin(form ->
-				form.loginPage("/member/login")
+				form.loginPage("/login")
 					.defaultSuccessUrl("/")
+					.permitAll()
 				);
 		
 		http.exceptionHandling().accessDeniedPage("/auth/accessDenied");
 		
         http.
         	logout().logoutUrl("/member/logout")
-		        .logoutRequestMatcher(new AntPathRequestMatcher("/member/logout"))
+		        .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
 		        .invalidateHttpSession(true)	//세션 무효화
 		        .logoutSuccessUrl("/");
         

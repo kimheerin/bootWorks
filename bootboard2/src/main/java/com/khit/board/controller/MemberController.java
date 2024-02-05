@@ -27,47 +27,53 @@ public class MemberController {
 	}
 
 	// 로그인
-	@GetMapping("/member/login")
+	@GetMapping("/login")
 	public String loginForm() {
-		return "/member/login";
+		return "login";
 	}
 
 	/*
-	 * @PostMapping("/member/login") public String login(@ModelAttribute Member
-	 * member, HttpSession session){ Member loginMember =
-	 * memberService.login(member); if(loginMember != null &&
-	 * loginMember.getPassword().equals(member.getPassword())){ //아이디와 비밀번호 일치해서 로그인
-	 * 되면 세션 발급 session.setAttribute("sessMemberId", loginMember.getMemberId());
-	 * return "main"; }else{ return "/member/login"; } }
+	 @PostMapping("/member/login")
+	 public String login(@ModelAttribute Member member, HttpSession session){
+	 Member loginMember = memberService.login(member);
+	 	if(loginMember != null &&
+	 		loginMember.getPassword().equals(member.getPassword())){ //아이디와 비밀번호 일치해서 로그인 되면 세션 발급
+	 		session.setAttribute("sessMemberId", loginMember.getMemberId());
+	 		return "main";
+	 	}else{
+	 		return "/member/login"; } }
 	 */
+	
 	// 회원가입
 	@GetMapping("/member/join")
 	public String joinForm(MemberDTO memberDTO) {
-		return "/member/join";
+		return "member/join";
 	}
 
 	@PostMapping("/member/join")
 	public String join(@Valid MemberDTO memberDTO, BindingResult bindingResult) { // @valid : 필드의 유효성 검사
 		if (bindingResult.hasErrors()) {
 			// 에러가 있으면 회원가입페이지에 머무름
-			return "/member/join";
+			return "member/join";
 		}
 		memberService.save(memberDTO);
 		return "redirect:/";
 	}
-
+	
+	/*
 	// 로그아웃
-	@GetMapping("/member/logout")
+	@GetMapping("/logout")
 	public String logout() {
 		return "redirect:/";
 	}
-
+	*/
+	
 	// 회원 목록
 	@GetMapping("/member/list")
 	public String list(Model model) {
 		List<MemberDTO> memberDTOList = memberService.findAll();
 		model.addAttribute("memberList", memberDTOList);
-		return "/member/list";
+		return "member/list";
 	}
 
 	// 회원 상세보기
@@ -75,7 +81,7 @@ public class MemberController {
 	public String detail(@PathVariable Integer id, Model model) {
 		MemberDTO memberDTO = memberService.findById(id);
 		model.addAttribute("member", memberDTO);
-		return "/member/detail";
+		return "member/detail";
 	}
 
 	// 회원 삭제
@@ -91,7 +97,7 @@ public class MemberController {
 	public String updateForm(@AuthenticationPrincipal SecurityUser principal, Model model) {
 		MemberDTO memberDTO = memberService.findByMemberId(principal);
 		model.addAttribute("member", memberDTO);
-		return "/member/update";
+		return "member/update";
 	}
 
 	@PostMapping("/member/update")

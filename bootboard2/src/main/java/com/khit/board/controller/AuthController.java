@@ -8,11 +8,12 @@ public class AuthController {
 	
 	@GetMapping("/auth/main")
 	public String authMain() {
-		return "/auth/main";
+		return "auth/main";
 	}
 
 	@GetMapping("/auth/accessDenied")
 	public String access() {
-		return "/auth/accessDenied";
+		return "auth/accessDenied";
 	}
 }
+	

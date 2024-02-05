@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>public-data main</title>
+<script type="text/javascript" src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=oxlxqp52ts"></script>
+<link rel="stylesheet" href="/css/style.css">
+<script src="https://code.jquery.com/jquery-3.7.1.js"
+	integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+	crossorigin="anonymous"></script>
+</head>
+<body>
+	<!-- header.html 연결 -->
+	<div th:replace="~{header::header-fragment}"></div>
+
+	<div id="container">
+		<section id="main">
+		<div id="map" style="width:100%;height:400px;"></div>
+      	<!-- 지도 표시 -->
+			<h2>지진·해일 정보</h2>
+			<button type="button" id="btn1">실행</button>
+			<table id="result1">
+				<thead>
+					<tr>
+						<th>일련번호</th>
+						<th>시도명</th>
+						<th>시군구명</th>
+						<th>대피지구명</th>
+						<th>대피장소명</th>
+						<th>주소명</th>
+						<th>주소</th>
+						<th>경도</th>
+						<th>위도</th>
+						<th>수용가능인원(명)</th>
+						<th>해변으로부터 거리</th>
+						<th>대피소분류명</th>
+						<th>내진적용 여부</th>
+						<th>해발 높이</th>
+					</tr>
+				</thead>
+				<tbody>
+					<!-- 데이터 출력 -->
+				</tbody>
+			</table>
+		</section>
+	</div>
+	<!-- footer.html 연결 -->
+	<div th:replace="~{footer::footer-fragment}"></div>
+<script>
+	/* jquery 환경 - 버튼 클릭 이벤트 */
+	$(document).ready(function(){
+		
+	//네이버 지도
+      var HOME_PATH = window.HOME_PATH || '.';
+
+      var cityhall = new naver.maps.LatLng(37.5252328, 126.8927846),
+          map = new naver.maps.Map('map', {
+              center: cityhall.destinationPoint(0, 500),
+              zoom: 15
+          }),
+          marker = new naver.maps.Marker({
+              map: map,
+              position: cityhall
+          });
+
+      var contentString = [
+              '<div class="iw_inner">',
+              '   <h3>영등포세무서</h3>',
+              '   <p>서울특별시 영등포구 태평로1가 선유동1로 38 | <br />',
+              ' 	영등포 세무서<br />',
+              '       <img src="'+ HOME_PATH +'/img/example/hi-seoul.jpg" width="55" height="55" alt="서울시청" class="thumb" /><br />',
+              '       02-120 | 공공,사회기관 &gt; 특별,광역시청<br />',
+              '       <a href="http://www.seoul.go.kr" target="_blank">www.seoul.go.kr/</a>',
+              '   </p>',
+              '</div>'
+          ].join('');
+
+      var infowindow = new naver.maps.InfoWindow({
+          content: contentString
+      });
+
+      naver.maps.Event.addListener(marker, "click", function(e) {
+          if (infowindow.getMap()) {
+              infowindow.close();
+          } else {
+              infowindow.open(map, marker);
+          }
+      });
+
+      infowindow.open(map, marker);
+		
+		//지진 해일 대피소 정보
+		$("#btn1").click(function(){
+			alert("test")
+			
+			$.ajax({
+				//요청방식(type), url, data, dataType success, error
+				type: "GET",
+				url: "https://apis.data.go.kr/1741000/TsunamiShelter3/getTsunamiShelter1List?serviceKey=8Xprbm0iOcgtMyHrm5lwWvt1Xn6UzD8wmw0N10UcJzPTT6s8nMDpkj5jooMHQBWf87i64Lwrm4q9eUG4nj7BKQ%3D%3D&pageNo=1&numOfRows=10&type=JSON",
+				dataType: "json",	//받는 데이터는 json 유형임을 필수로 명시
+				success: function(data) {
+					console.log(data)
+					
+					data.TsunamiShelter[1].row;
+					
+					//테이블  작성
+					let itemArr = data.TsunamiShelter[1].row;
+					let value = "";	//태그 + data
+					for(let i = 0; i < itemArr.length; i++){
+						let item = itemArr[i]; //각 인덱스에 객체 저장
+						value += "<tr>"
+								+ "<td>" + item.id + "</td>"
+								+ "<td>" + item.sido_name + "</td>"
+								+ "<td>" + item.sigungu_name + "</td>"
+								+ "<td>" + item.remarks + "</td>"
+								+ "<td>" + item.shel_nm + "</td>"
+								+ "<td>" + item.address + "</td>"
+								+ "<td>" + item.lon + "</td>"
+								+ "<td>" + item.lat + "</td>"
+								+ "<td>" + item.shel_av + "</td>"
+								+ "<td>" + item.lenth + "</td>"
+								+ "<td>" + item.hel_div_type + "</td>"
+								+ "<td>" + item.seismic + "</td>"
+								+ "<td>" + item.height + "</td>"
+								
+								+ "</tr>"
+					}
+					
+					//데이터 보내줄 곳 지정
+					$("#result1 tbody").html(value);
+				},
+				error: function(error) {
+					alert("에러 발생: " + error)
+				}
+			});
+		});
+	});
+</script>
+</body>
+</html>

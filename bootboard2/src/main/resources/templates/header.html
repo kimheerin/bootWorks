@@ -12,21 +12,13 @@
 		<!-- 로그인 전 -->
 		<th:block sec:authorize="isAnonymous()">
 			<ul class="navbar-nav">
-				<li>
-          			<a th:href="@{/member/login}">SIGN-IN</a>
-				</li>
-				<li>
-					<a th:href="@{/member/join}">SIGN-UP</a>
-				</li>
-				<li>
-					<a th:href="@{/member/list}">MEMBERLIST</a>
-				</li>
-				<li>
-					<a th:href="@{/board/list}">COMMUNITY</a>
-				</li>
+				<li><a th:href="@{/login}">SIGN-IN</a></li>
+				<li><a th:href="@{/member/join}">SIGN-UP</a></li>
+				<li><a th:href="@{/public-data/main}">Public Data</a></li>
+				<li><a th:href="@{/board/list}">COMMUNITY</a></li>
 			</ul>
 		</th:block>
-		
+
 		<!-- 로그인 후 -->
 		<th:block sec:authorize="isAuthenticated()">
 			<ul class="navbar-nav">
@@ -34,10 +26,11 @@
 					<span sec:authentication="principal.member.name" 
 					style="font-size: 13px; color: #F8A39E;">
                     </span>&nbsp;
-					<a th:href="@{/member/logout}">SIGN OUT</a>
+					<a th:href="@{/logout}">SIGN OUT</a>
 				</li>
 				<li>
 					<a th:href="@{/member/update}">MY INFO</a>
+					
 				</li>
 				<li>
 					<a th:href="@{/member/list}">MEMBER LIST</a>

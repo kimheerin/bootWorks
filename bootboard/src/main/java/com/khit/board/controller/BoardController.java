@@ -130,10 +130,13 @@ public class BoardController {
 	//글 수정 처리
 	@PostMapping("/update")
 	public String update(@ModelAttribute BoardDTO boardDTO,
-			MultipartFile boardFile) throws IOException {
+			MultipartFile boardFile,
+			Model model) throws IOException {
 		//수정 후 글 상세보기
-		boardService.update(boardDTO, boardFile);
-		return "redirect:/board/" + boardDTO.getId();
+		BoardDTO upBoardDTO =	boardService.update(boardDTO, boardFile);
+		model.addAttribute("board", upBoardDTO);
+		return "board/detail";
+		//return "redirect:/board/" + boardDTO.getId();	//상세보기로 이동(새로고침)
 	}
 		
 
